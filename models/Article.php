@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "article".
@@ -104,7 +105,11 @@ class Article extends \yii\db\ActiveRecord
         return ($this->image) ? '/uploads/' . $this->image : '/no-image.png';
     }
 
-    public function saveImage($filename) {
+    /**
+     * @param $filename
+     */
+    public function saveImage($filename)
+    {
         $this->image = $filename;
         $this->save(false);
     }
@@ -115,8 +120,69 @@ class Article extends \yii\db\ActiveRecord
         $imageUploadModel->deleteCurrentImage($this->image);
     }
 
-    public function beforeDelete() {
+    /**
+     * @return bool
+     */
+    public function beforeDelete()
+    {
         $this->deleteImage();
         return parent::beforeDelete();
+    }
+
+    /**
+     * @param $category_id
+     * @return bool
+     */
+    public function saveCategory($category_id)
+    {
+        $category = Category::findOne($category_id);
+
+        if ($category != null)
+        {
+            $this->link('category', $category);
+            return true;
+        }
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getTags()
+    {
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+            ->viaTable('article_tag', ['article_id' => 'id']);
+    }
+
+    /**
+     * @return mixed
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getSelectedTags()
+    {
+        $selectedIds = $this->getTags()->select('id')->asArray()->all();
+        return ArrayHelper::getColumn($selectedIds, 'id');
+    }
+
+    /**
+     * @param $tags
+     */
+    public function saveTags($tags)
+    {
+        if (is_array($tags))
+        {
+            $this->clearCurrentTags();
+
+            foreach ($tags as $tag_id)
+            {
+                $tag = Tag::findOne($tag_id);
+                $this->link('tags', $tag);
+            }
+        }
+    }
+
+    public function clearCurrentTags()
+    {
+        ArticleTag::deleteAll(['article_id' => $this->id]);
     }
 }
