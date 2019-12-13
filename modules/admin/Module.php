@@ -30,7 +30,11 @@ class Module extends \yii\base\Module
                         'allow' =>  true,
                         'matchCallback' =>  function($rule, $action)
                         {
-                            return Yii::$app->user->identity->isAdmin;
+                            if (Yii::$app->user->isGuest) {
+                                return Yii::$app->response->redirect('error');
+                            } else {
+                                return Yii::$app->user->identity->isAdmin;
+                            }
                         }
                     ]
                 ]
