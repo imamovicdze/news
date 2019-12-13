@@ -71,7 +71,8 @@ class ArticleController extends Controller
     public function actionCreate()
     {
         $model = new Article();
-        $model->category_id = 1;
+        $model->category_id = 1; // by default basic category
+        $model->user_id = Yii::$app->user->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
             return $this->redirect(['view', 'id' => $model->id]);
