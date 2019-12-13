@@ -219,4 +219,9 @@ class Article extends \yii\db\ActiveRecord
     {
         return Article::find()->orderBy('date asc')->limit(4)->all();
     }
+
+    public function getArticleComments()
+    {
+        return $this->getComments()->where(['status' => 1])->all();
+    }
 }
