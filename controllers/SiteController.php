@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Article;
+use app\models\ArticleTag;
 use app\models\Category;
 use app\models\CommentForm;
 use Yii;
@@ -120,6 +121,7 @@ class SiteController extends Controller
         $categories = Category::getAll();
         $comments = $article->getArticleComments();
         $commentForm = new CommentForm();
+        $tags = ArticleTag::getArticleTags($article->id);
 
         $article->viewedCounter();
 
@@ -129,7 +131,8 @@ class SiteController extends Controller
             'recent' => $recent,
             'categories' => $categories,
             'comments' => $comments,
-            'commentForm' => $commentForm
+            'commentForm' => $commentForm,
+            'tags' => $tags
         ]);
     }
 

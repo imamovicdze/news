@@ -63,4 +63,9 @@ class ArticleTag extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Tag::className(), ['id' => 'tag_id']);
     }
+
+    public static function getArticleTags($article_id)
+    {
+        return ArticleTag::find()->where(['article_id' => $article_id])->all();
+    }
 }

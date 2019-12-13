@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Article;
+use app\models\ArticleTag;
 use app\models\Category;
 use app\models\Comment;
 use yii\helpers\Url;
@@ -11,6 +12,7 @@ use yii\helpers\Url;
 /* @var $categories Category[] */
 /* @var $comments Comment[] */
 /* @var $commentForm Comment */
+/* @var $tags ArticleTag[] */
  ?>
 <!--main content start-->
 <div class="main-content">
@@ -27,14 +29,14 @@ use yii\helpers\Url;
 
                             <h1 class="entry-title"><a href="<?= Url::ToRoute(['site/view', 'id' => $article->id]); ?>"><?= $article->title ?></a></h1>
 
-
                         </header>
                         <div class="entry-content">
                             <?= $article->content ?>
                         </div>
                         <div class="decoration">
-                            <a href="#" class="btn btn-default">Decoration</a>
-                            <a href="#" class="btn btn-default">Decoration</a>
+                            <?php foreach ($tags as $tag) { ?>
+                                <a href="#0" class="btn btn-default"><?= $tag->tag->title ?></a>
+                            <?php } ?>
                         </div>
 
                         <div class="social-share">
