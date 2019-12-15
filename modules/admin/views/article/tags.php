@@ -13,6 +13,8 @@ use yii\widgets\ActiveForm;
 
 <div class="article-form">
 
+    <h5>If you want more tags, press CTRL and select</h5>
+
     <?php $form = ActiveForm::begin(); ?>
 
     <?= Html::dropDownList('tags', $selectedTags, $tags, ['class' => 'form-control', 'multiple' => true]) ?>

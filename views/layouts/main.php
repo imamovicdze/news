@@ -35,18 +35,17 @@ PublicAsset::register($this);
                     <span class="icon-bar"></span>
                 </button>
             </div>
-
-
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                 <ul class="nav navbar-nav text-uppercase">
-                    <li>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="/">News</a>
-                    </li>
                     <?php if (!Yii::$app->user->isGuest): ?>
-                    <li>
-                        <a href="<?= Url::toRoute(['/admin'])?>">Admin Panel</a>
-                    </li>
+                        <li>
+                            <a href="<?= Url::toRoute(['/admin'])?>">Admin Panel</a>
+                        </li>
+                    <?php else: ?>
+                        <li>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="/">News</a>
+                        </li>
                     <?php endif;?>
                 </ul>
                 <div class="i_con">
@@ -186,7 +185,7 @@ PublicAsset::register($this);
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="text-center">&copy; 2019 <a href="https://www.imamovicdze.com/" target="_blank">Dzenan Imamovic</a>
+                    <div class="text-center">&copy; 2019 <a href="https://www.imamovicdze.com/" target="_blank">Dzenan Imamovic & Elvir Muslic</a>
                     </div>
                 </div>
             </div>
