@@ -41,8 +41,13 @@ PublicAsset::register($this);
 
                 <ul class="nav navbar-nav text-uppercase">
                     <li>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="/">Home</a>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="/">News</a>
                     </li>
+                    <?php if (!Yii::$app->user->isGuest): ?>
+                    <li>
+                        <a href="<?= Url::toRoute(['/admin'])?>">Admin Panel</a>
+                    </li>
+                    <?php endif;?>
                 </ul>
                 <div class="i_con">
                     <ul class="nav navbar-nav text-uppercase">
@@ -50,12 +55,7 @@ PublicAsset::register($this);
                             <li><a href="<?= Url::toRoute(['auth/login'])?>">Login</a></li>
                             <li><a href="<?= Url::toRoute(['auth/signup'])?>">Register</a></li>
                         <?php else : ?>
-                            <?= Html::beginForm(['/auth/logout'], 'post')
-                            . Html::submitButton(
-                                'Logout (' . Yii::$app->user->identity->name . ')',
-                                ['class' => 'btn btn-link logout', 'style'=>"padding-top:10px;"]
-                            )
-                            . Html::endForm() ?>
+                            <li><a href="<?= Url::toRoute(['auth/logout'])?>"><?= 'Logout (' . Yii::$app->user->identity->name . ')' ?></a></li>
                         <?php endif;?>
                     </ul>
                 </div>
