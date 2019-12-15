@@ -45,6 +45,15 @@ AppAsset::register($this);
             ['label' => 'Tags', 'url' => ['/admin/tag/index']],
         ],
     ]);
+
+    if (!Yii::$app->user->isGuest) {
+        echo Html::beginForm(['/auth/logout'], 'post')
+        . Html::submitButton(
+            'Logout (' . Yii::$app->user->identity->name . ')',
+            ['class' => 'btn btn-link logout', 'style' => "padding-top:10px;"]
+        )
+        . Html::endForm();
+    }
     NavBar::end();
     ?>
 
