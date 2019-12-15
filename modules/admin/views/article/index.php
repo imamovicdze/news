@@ -25,10 +25,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'user_id',
-            'category_id',
+            [
+                'label' => 'Category',
+                'attribute' => 'user.name'
+            ],
+            [
+                'label' => 'Category',
+                'attribute' => 'category.title'
+            ],
             'title',
             'description:ntext',
             [
