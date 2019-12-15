@@ -56,6 +56,10 @@ class CategoryController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return Yii::$app->response->redirect('error');
+        }
+
         $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -85,6 +89,10 @@ class CategoryController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return Yii::$app->response->redirect('error');
+        }
+
         $model = new Category();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

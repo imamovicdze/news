@@ -47,6 +47,10 @@ class CommentController extends Controller
 
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return Yii::$app->response->redirect('error');
+        }
+
         $comments = Comment::find()->orderBy('id desc')->all();
 
         return $this->render('index',['comments'=>$comments]);

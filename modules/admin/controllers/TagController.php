@@ -59,6 +59,10 @@ class TagController extends Controller
         $searchModel = new TagSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        if (Yii::$app->user->isGuest) {
+            return Yii::$app->response->redirect('error');
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -85,6 +89,10 @@ class TagController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return Yii::$app->response->redirect('error');
+        }
+
         $model = new Tag();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
