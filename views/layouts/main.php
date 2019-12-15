@@ -186,7 +186,7 @@ PublicAsset::register($this);
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="text-center">&copy; 2019 <a href="#">Dzenan Imamovic</a>
+                    <div class="text-center">&copy; 2019 <a href="https://www.imamovicdze.com/" target="_blank">Dzenan Imamovic</a>
                     </div>
                 </div>
             </div>
