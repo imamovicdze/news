@@ -45,6 +45,9 @@ class AuthController extends Controller
         if (Yii::$app->request->isPost)
         {
             $model->load(Yii::$app->request->post());
+            $signUpForm = Yii::$app->request->post('SignupForm');
+            $model->password = md5($signUpForm['password']);
+
             if ($model->signup())
             {
                 return $this->redirect(['auth/login']);
