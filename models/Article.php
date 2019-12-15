@@ -201,6 +201,7 @@ class Article extends \yii\db\ActiveRecord
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => $pageSize]);
 
         $articles = $query->offset($pagination->offset)
+            ->orderBy('id desc')
             ->limit($pagination->limit)
             ->all();
 

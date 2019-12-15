@@ -1,6 +1,6 @@
 <?php
 
-/* @var $this \yii\web\View */
+/* @var $this View */
 /* @var $content string */
 
 use app\assets\AppAsset;
@@ -8,6 +8,7 @@ use app\widgets\Alert;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\Breadcrumbs;
 
 AppAsset::register($this);
@@ -40,9 +41,9 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/admin/default/index']],
             ['label' => 'Articles', 'url' => ['/admin/article/index']],
-            ['label' => 'Comments', 'url' => ['/admin/comment/index']],
-            ['label' => 'Categories', 'url' => ['/admin/category/index']],
-            ['label' => 'Tags', 'url' => ['/admin/tag/index']],
+            (Yii::$app->user->identity->isAdmin) ? ['label' => 'Comments', 'url' => ['/admin/comment/index']] : '',
+            (Yii::$app->user->identity->isAdmin) ? ['label' => 'Categories', 'url' => ['/admin/category/index']] : '',
+            (Yii::$app->user->identity->isAdmin) ? ['label' => 'Tags', 'url' => ['/admin/tag/index']] : ''
         ],
     ]);
 

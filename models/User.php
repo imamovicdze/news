@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
@@ -18,7 +19,7 @@ use yii\web\IdentityInterface;
  * @property Article[] $articles
  * @property Comment[] $comments
  */
-class User extends \yii\db\ActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -55,7 +56,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getArticles()
     {
@@ -63,7 +64,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getComments()
     {
@@ -110,11 +111,27 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         // TODO: Implement validateAuthKey() method.
     }
 
+    /**
+     * @param $id
+     * @return array
+     */
+    public function findUserByID($id) {
+        return User::find()->where(['id' => $id])->one()->toArray();
+    }
+
+    /**
+     * @param $username
+     * @return array|ActiveRecord|null
+     */
     public static function findByUsername($username)
     {
         return User::find()->where(['name' => $username])->one();
     }
 
+    /**
+     * @param $password
+     * @return bool
+     */
     public function validatePassword($password)
     {
         return ($this->password == $password) ? true : false;

@@ -2,12 +2,13 @@
 
 namespace app\modules\admin\controllers;
 
-use Yii;
 use app\models\Category;
 use app\models\CategorySearch;
+use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * CategoryController implements the CRUD actions for Category model.
@@ -26,6 +27,26 @@ class CategoryController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access'    =>  [
+                'class' =>  AccessControl::className(),
+                'denyCallback'  =>  function($rule, $action)
+                {
+                    throw new \yii\web\NotFoundHttpException();
+                },
+                'rules' =>  [
+                    [
+                        'allow' =>  true,
+                        'matchCallback' =>  function($rule, $action)
+                        {
+                            if (Yii::$app->user->isGuest) {
+                                return Yii::$app->response->redirect('error');
+                            } else {
+                                return Yii::$app->user->identity->isAdmin;
+                            }
+                        }
+                    ]
+                ]
+            ]
         ];
     }
 

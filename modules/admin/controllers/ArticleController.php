@@ -2,16 +2,16 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Article;
+use app\models\ArticleSearch;
 use app\models\Category;
 use app\models\ImageUpload;
 use app\models\Tag;
 use Yii;
-use app\models\Article;
-use app\models\ArticleSearch;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\web\UploadedFile;
 
@@ -41,8 +41,9 @@ class ArticleController extends Controller
      */
     public function actionIndex()
     {
+        $userId = Yii::$app->user->id;
         $searchModel = new ArticleSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $userId);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

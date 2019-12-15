@@ -4,7 +4,6 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Article;
 
 /**
  * ArticleSearch represents the model behind the search form of `app\models\Article`.
@@ -32,13 +31,11 @@ class ArticleSearch extends Article
     }
 
     /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
+     * @param $params
+     * @param $userId
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $userId)
     {
         $query = Article::find();
 
@@ -56,10 +53,14 @@ class ArticleSearch extends Article
             return $dataProvider;
         }
 
+        /** @var User $model */
+        $model = new User();
+        $user = $model->findUserByID($userId);
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
+            'user_id' => ($user['isAdmin'] === 1) ? $this->user_id : $userId,
             'category_id' => $this->category_id,
             'date' => $this->date,
             'viewed' => $this->viewed,
