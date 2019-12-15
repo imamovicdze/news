@@ -43,11 +43,10 @@ use yii\helpers\Url;
 							<span
                                 class="social-share-title pull-left text-capitalize">By <?= $article->user->name ?> On <?= $article->getDate(); ?></span>
                             <ul class="text-center pull-right">
-                                <li><a class="s-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a class="s-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a class="s-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a class="s-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a class="s-instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li>
+                                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+                                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                </li>
                             </ul>
                         </div>
                     </div>
