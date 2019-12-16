@@ -40,7 +40,7 @@ PublicAsset::register($this);
                 <ul class="nav navbar-nav text-uppercase">
                     <?php if (!Yii::$app->user->isGuest): ?>
                         <li>
-                            <a href="<?= Url::toRoute(['/admin'])?>">Admin Panel</a>
+                            <a href="<?= Url::toRoute(['/admin/article/index'])?>">Admin Panel</a>
                         </li>
                     <?php else: ?>
                         <li>

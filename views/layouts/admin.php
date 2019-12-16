@@ -39,7 +39,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/admin/default/index']],
+           // ['label' => 'Home', 'url' => ['/admin/default/index']],
             ['label' => 'Articles', 'url' => ['/admin/article/index']],
             (Yii::$app->user->identity->isAdmin) ? ['label' => 'Comments', 'url' => ['/admin/comment/index']] : '',
             (Yii::$app->user->identity->isAdmin) ? ['label' => 'Categories', 'url' => ['/admin/category/index']] : '',

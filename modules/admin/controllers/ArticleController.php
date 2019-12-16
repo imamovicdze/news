@@ -45,6 +45,11 @@ class ArticleController extends Controller
     public function actionIndex()
     {
         $userId = Yii::$app->user->id;
+
+        if (!isset($userId)) {
+            return $this->redirect('error');
+        }
+
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $userId);
 
