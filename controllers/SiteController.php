@@ -116,6 +116,11 @@ class SiteController extends Controller
     public function actionView($id)
     {
         $article = Article::findOne($id);
+
+        if (!isset($article)) {
+            return $this->redirect('error');
+        }
+
         $popular = Article::getPopular();
         $recent = Article::getRecent();
         $categories = Category::getAll();
