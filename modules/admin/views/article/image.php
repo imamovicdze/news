@@ -4,8 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Article */
+/* @var $article app\models\Article */
 /* @var $form yii\widgets\ActiveForm */
+
+$this->title = 'Set Image';
+$this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $article->title, 'url' => ['view', 'id' => $article->id]];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="article-form">

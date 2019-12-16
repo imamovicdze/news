@@ -7,7 +7,10 @@ use app\models\ArticleSearch;
 use app\models\Category;
 use app\models\ImageUpload;
 use app\models\Tag;
+use Throwable;
 use Yii;
+use yii\base\InvalidConfigException;
+use yii\db\StaleObjectException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -110,6 +113,8 @@ class ArticleController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws Throwable
+     * @throws StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -142,10 +147,11 @@ class ArticleController extends Controller
     public function actionSetImage($id)
     {
         $model = new ImageUpload();
+        $article = $this->findModel($id);
 
         if (Yii::$app->request->isPost)
         {
-            $article = $this->findModel($id);
+
             $file = UploadedFile::getInstance($model, 'image');
             $article->saveImage($model->uploadFile($file, $article->image));
 
@@ -155,7 +161,10 @@ class ArticleController extends Controller
             }
         }
 
-        return $this->render('image', ['model' => $model]);
+        return $this->render('image', [
+            'model' => $model,
+            'article' => $article,
+            ]);
     }
 
     /**
@@ -189,7 +198,7 @@ class ArticleController extends Controller
      * @param $id
      * @return string
      * @throws NotFoundHttpException
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function actionSetTags($id)
     {
@@ -206,7 +215,8 @@ class ArticleController extends Controller
 
         return $this->render('tags', [
             'selectedTags' => $selectedTags,
-            'tags' => $tags
+            'tags' => $tags,
+            'article' => $article
         ]);
     }
 }
