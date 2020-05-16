@@ -21,7 +21,7 @@ class m191116_211600_create_article_table extends Migration
             'title' => $this->string(),
             'description' => $this->text(),
             'content' => $this->text(),
-            'date' => $this->date(),
+            'date' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP')->append('ON UPDATE CURRENT_TIMESTAMP'),
             'image' => $this->string(),
             'viewed' => $this->integer(),
             'status' => $this->integer(),
