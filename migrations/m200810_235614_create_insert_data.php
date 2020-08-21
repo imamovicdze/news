@@ -18,6 +18,10 @@ class m200810_235614_create_insert_data extends Migration
             'password' => md5('admin'),
             'isAdmin' => 1
         ]);
+
+        $this->insert('category', [
+            'title' => 'Basic'
+        ]);
     }
 
     /**
@@ -30,6 +34,10 @@ class m200810_235614_create_insert_data extends Migration
             'email' => 'admin@admin.com',
             'password' => md5('admin'),
             'isAdmin' => 1
+        ]);
+
+        $this->delete('category', [
+            'title' => 'Basic'
         ]);
     }
 
