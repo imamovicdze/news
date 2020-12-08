@@ -25,6 +25,10 @@ Now run command:
 
 `yii migrate` to create tables.
 
+Now run
+
+`php yii serve`
+
 Now create virtual host: 
 
 - name: `news.com` 
